@@ -1,3 +1,9 @@
+<div align="center">
+  <a href="https://uxuiprinciples.com">
+    <img src="https://uxuiprinciples.com/android-chrome-512x512.png" alt="UX/UI Principles" width="100">
+  </a>
+</div>
+
 # UX/UI Principles API
 
 Access 168 research-backed design principles programmatically.
