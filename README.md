@@ -6,54 +6,86 @@
 
 # UX/UI Principles API
 
-Access 168 research-backed design principles programmatically.
+Query 195 research-backed UX/UI principles, 8 UX smells and 5 flow checklists over HTTP, in English and Spanish.
 
-## Overview
+Every principle carries a code from a six-part taxonomy, an academic basis, and a summary written to be pasted into Cursor, v0 or Claude.
 
-Each principle includes:
-- Clear definition
-- Academic citations (2,098+ total)
-- AI-ready prompts for Cursor, V0, Claude
-- Related principles
+**Full reference: [uxuiprinciples.com/en/docs/api](https://uxuiprinciples.com/en/docs/api)** — that page is the source of truth and is kept current. This README is the short version.
 
-## Quick Start
+## Quick start
+
+No key needed to try it. The free tier returns metadata for the sample principles:
 
 ```bash
-curl https://api.uxuiprinciples.com/v1/principles/fitts-law
+curl "https://uxuiprinciples.com/api/v1/principles?slug=fitts-law"
 ```
 
 ```json
 {
-  "id": "fitts-law",
-  "name": "Fitts's Law",
-  "definition": "The time to acquire a target is a function of the distance to and size of the target.",
-  "citations": ["Fitts, P.M. (1954)"],
-  "category": "interaction",
-  "prompt": "Ensure interactive elements are large enough and positioned to minimize movement distance..."
+  "success": true,
+  "data": {
+    "slug": "fitts-law",
+    "title": "Fitts's Law",
+    "code": "I.2.2.02",
+    "part": "part-4",
+    "partName": "Part IV - Interface Patterns",
+    "difficulty": "intermediate",
+    "readTime": 14,
+    "aiSummary": "Fitts's Law (Fitts 1954, MacKenzie 1992) demonstrates movement time follows MT = a + b × log₂(2D/W), with larger closer targets reducing interaction time 40-60%...",
+    "tags": ["motor-performance", "target-acquisition", "touch-targets"]
+  },
+  "meta": { "version": "v1", "tier": "free", "locale": "en" }
 }
 ```
 
-## Categories
+With a key, send it as a bearer token:
 
-- `foundations` — Core principles (Fitts's Law, Hick's Law, etc.)
-- `visual` — Color, typography, hierarchy
-- `interaction` — Touch targets, feedback, affordances
-- `accessibility` — WCAG compliance
-- `cognitive` — Mental models, memory, attention
+```bash
+curl -H "Authorization: Bearer $UXUI_API_KEY" \
+  "https://uxuiprinciples.com/api/v1/principles?part=part-6"
+```
 
-## Pricing
+## Endpoints
 
-| Tier | Requests | Price |
-|------|----------|-------|
-| Free | 100/month | $0 |
-| Pro | Unlimited | $29/year |
+Base URL is `https://uxuiprinciples.com/api/v1`.
 
-## Full Documentation
+| Endpoint | Method | Access | Returns |
+|---|---|---|---|
+| `/principles` | GET | free, enriched with a key | Filter by `slug`, `part`, `difficulty`, `search`, `locale`, `limit`. `include_content=true` needs a key. |
+| `/smells` | GET | key required | The 8 UX antipatterns with fix recipes. Filter by `id` or `category`. |
+| `/flows` | GET | key required | The 5 pre and post-flight checklists. Filter by `id`. |
+| `/audit` | POST | key required | Match an interface description against the taxonomy. |
+| `/validate` | POST | key required | Validate a design against a chosen set of principles. |
 
-[View all 168 principles →](https://uxuiprinciples.com)
+Without a key, `/smells` and `/flows` answer `403`. That is the tier boundary, not an error in your request.
 
-[API Documentation →](https://api.uxuiprinciples.com/docs)
+## The taxonomy
+
+Principle codes carry their part: `F.` Foundations, `C.` Core Principles, `D.` Design Systems, `I.` Interface Patterns, `S.` Specialized, `H.` Human-Centered.
+
+| Part | Domain | Principles |
+|---|---|---|
+| Part 1 | Foundations | 32 |
+| Part 2 | Core Principles | 34 |
+| Part 3 | Design Systems | 22 |
+| Part 4 | Interface Patterns | 23 |
+| Part 5 | AI-Native and Specialized | 61 |
+| Part 6 | Human-Centered Excellence | 23 |
+
+## Access
+
+| Tier | What you get | Price |
+|---|---|---|
+| Free | Metadata for the sample principles, no key needed | $0 |
+| API Access | All 195 principles with full content, smells, flows, audit and validate. 1,000 requests/hour | $19/year |
+
+[Get a key →](https://uxuiprinciples.com/en/checkout)
+
+## Other ways in
+
+- **MCP server.** [`@uxuiprinciples/mcp-server`](https://www.npmjs.com/package/@uxuiprinciples/mcp-server) puts the same data in Claude Desktop and Claude Code. Free, no key required.
+- **Agent skills.** [uxuiprinciples/agent-skills](https://github.com/uxuiprinciples/agent-skills) is five SKILL.md files for Cursor, Windsurf and kx. Free.
 
 ## License
 
-API access requires subscription. Principle definitions are proprietary.
+The API is a hosted service; this repository holds documentation only. Principle text is proprietary and stays behind the Principles Library.
