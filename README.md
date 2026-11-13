@@ -77,14 +77,15 @@ Principle codes carry their part: `F.` Foundations, `C.` Core Principles, `D.` D
 | Tier | What you get | Price |
 |---|---|---|
 | Free | Metadata for the sample principles, no key needed | $0 |
-| API Access | All 195 principles with full content, smells, flows, audit and validate. 1,000 requests/hour | $19/year |
+| Principles Library | The API key (all 195 principles with full content, smells, flows, audit and validate, 1,000 requests/hour) plus the full library on the site | $59/year |
 
-[Get a key →](https://uxuiprinciples.com/en/checkout)
+[Get a key →](https://uxuiprinciples.com/en/checkout?utm_source=github&utm_medium=referral&utm_campaign=design-principles-api)
 
 ## Other ways in
 
 - **MCP server.** [`@uxuiprinciples/mcp-server`](https://www.npmjs.com/package/@uxuiprinciples/mcp-server) puts the same data in Claude Desktop and Claude Code. Free, no key required.
 - **Agent skills.** [uxuiprinciples/agent-skills](https://github.com/uxuiprinciples/agent-skills) is five SKILL.md files for Cursor, Windsurf and kx. Free.
+- **Context pack.** [uxuiprinciples.com/en/tools/ide-packs](https://uxuiprinciples.com/en/tools/ide-packs?utm_source=github&utm_medium=referral&utm_campaign=design-principles-api) is a rules file for Cursor, Claude Code and Windsurf. Free.
 
 ## License
 
